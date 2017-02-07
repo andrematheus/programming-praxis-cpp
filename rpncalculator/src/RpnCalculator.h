@@ -1,14 +1,15 @@
-//
-// Created by amatheus on 07/02/17.
-//
+#pragma once
 
-#ifndef PROGRAMMING_PRAXIS_CPP_RPNCALCULATOR_H
-#define PROGRAMMING_PRAXIS_CPP_RPNCALCULATOR_H
-
+#include <string>
+#include <stack>
 
 class RpnCalculator {
 
+public:
+    void evaluate(std::string input);
+
+    double top();
+
+private:
+    std::stack<double> stack;
 };
-
-
-#endif //PROGRAMMING_PRAXIS_CPP_RPNCALCULATOR_H
