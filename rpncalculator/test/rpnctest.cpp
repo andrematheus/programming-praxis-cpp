@@ -12,3 +12,9 @@ TEST(RpnCalculatorTest, ShouldAddADoubleToTheStack) {
     calc.evaluate("2.5");
     ASSERT_EQ(2.5, calc.top());
 }
+
+TEST(RpnCalculator, ShouldReturnErrorWhenEvaluatingGarbage) {
+    auto calc = RpnCalculator();
+    auto result = calc.evaluate("garbage");
+    ASSERT_TRUE(result->is_error());
+}

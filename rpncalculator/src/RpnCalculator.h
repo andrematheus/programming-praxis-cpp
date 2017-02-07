@@ -2,11 +2,17 @@
 
 #include <string>
 #include <stack>
+#include <memory>
+#include "CalcResult.h"
+
+enum class RpnCalculatorError {
+    ParsingError,
+};
 
 class RpnCalculator {
 
 public:
-    void evaluate(std::string input);
+    std::unique_ptr<CalcResultS> evaluate(std::string input);
 
     double top();
 

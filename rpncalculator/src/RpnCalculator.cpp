@@ -3,12 +3,13 @@
 
 using namespace std;
 
-void RpnCalculator::evaluate(string input) {
+std::unique_ptr<CalcResultS> RpnCalculator::evaluate(string input) {
     try {
         auto operand = stod(input);
         this->stack.push(operand);
+        return CalcResultS::ok();
     } catch (const exception &e) {
-        cout << "Error: " << e.what() << endl;
+        return CalcResultS::error(CalcError::ParsingError);
     }
 }
 
