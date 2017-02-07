@@ -1,0 +1,14 @@
+//
+// Created by amatheus on 07/02/17.
+//
+
+#ifndef PROGRAMMING_PRAXIS_CPP_RPNCALCULATOR_H
+#define PROGRAMMING_PRAXIS_CPP_RPNCALCULATOR_H
+
+
+class RpnCalculator {
+
+};
+
+
+#endif //PROGRAMMING_PRAXIS_CPP_RPNCALCULATOR_H
