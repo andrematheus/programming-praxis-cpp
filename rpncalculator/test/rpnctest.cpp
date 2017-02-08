@@ -35,3 +35,10 @@ TEST(RpnCalculator, ShouldSumTwoOperandsInTheStack) {
     ASSERT_FALSE(is_error(result));
     ASSERT_EQ(2.5 + 3.4, calc.top());
 }
+
+TEST(RpnCalculator, ShouldReturnErrorWhenTheresNotEnoughOperandsInStack) {
+    auto calc = RpnCalculator();
+    auto result = calc.evaluate("+");
+    ASSERT_TRUE(is_error(result));
+    ASSERT_EQ(CalcResult::NotEnoughOperandsError, result);
+}

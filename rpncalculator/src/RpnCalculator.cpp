@@ -22,14 +22,19 @@ CalcResult RpnCalculator::evaluate(string input) {
     string token;
     while (getline(is, token, ' ')) {
         try {
+            CalcResult result;
             switch (token[0]) {
                 case '+':
-                    sum_operator(this->stack);
+                    result = sum_operator(this->stack);
                     break;
                 default:
                     auto operand = stod(token);
                     this->stack.push(operand);
+                    result = CalcResult::OK;
                     break;
+            }
+            if (result != CalcResult::OK) {
+                return result;
             }
         } catch (const exception &e) {
             return CalcResult::ParsingError;
