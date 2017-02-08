@@ -42,3 +42,15 @@ TEST(RpnCalculator, ShouldReturnErrorWhenTheresNotEnoughOperandsInStack) {
     ASSERT_TRUE(is_error(result));
     ASSERT_EQ(CalcResult::NotEnoughOperandsError, result);
 }
+
+TEST(RpnCalculator, ShouldAcceptOperatorsPassedToConstructor) {
+    auto ops = std::map<std::string, Operator>();
+    ops["?"] = Operator([](std::stack<double> &s) {
+        s.push(10.0);
+        return CalcResult::OK;
+    });
+    auto calc = RpnCalculator(ops);
+    CalcResult result = calc.evaluate("?");
+    ASSERT_FALSE(is_error(result));
+    ASSERT_EQ(10.0, calc.top());
+}
