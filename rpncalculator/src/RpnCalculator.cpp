@@ -61,10 +61,20 @@ binary_operator(function<double(double, double)> delegate) {
     };
 }
 
+#define OP(name, lambda) \
+    {\
+    auto __operator = Operator(\
+        binary_operator(lambda)\
+    );\
+    ops[name] = __operator;\
+    }
+
 std::map<std::string, Operator> default_operators() {
-    auto sum_operator = Operator(
-            binary_operator([](double x, double y) { return x + y; }));
     auto ops = map<string, Operator>();
-    ops["+"] = sum_operator;
+    OP("+", [](double x, double y) { return y + x; });
+    OP("-", [](double x, double y) { return y - x; });
+    OP("*", [](double x, double y) { return y * x; });
+    OP("/", [](double x, double y) { return y / x; });
+
     return ops;
 }

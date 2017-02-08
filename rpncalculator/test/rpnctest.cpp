@@ -11,7 +11,7 @@ TEST(RpnCalculator, ShouldAddADoubleToTheStack) {
     auto calc = RpnCalculator();
     auto result = calc.evaluate("2.5");
     ASSERT_FALSE(is_error(result));
-    ASSERT_EQ(2.5, calc.top());
+    ASSERT_DOUBLE_EQ(2.5, calc.top());
 }
 
 TEST(RpnCalculator, ShouldReturnErrorWhenEvaluatingGarbage) {
@@ -24,16 +24,16 @@ TEST(RpnCalculator, ShouldAddTwoDoublesToTheStack) {
     auto calc = RpnCalculator();
     auto result = calc.evaluate("2.5 3.4");
     ASSERT_FALSE(is_error(result));
-    ASSERT_EQ(3.4, calc.top());
+    ASSERT_DOUBLE_EQ(3.4, calc.top());
     calc.pop();
-    ASSERT_EQ(2.5, calc.top());
+    ASSERT_DOUBLE_EQ(2.5, calc.top());
 }
 
 TEST(RpnCalculator, ShouldSumTwoOperandsInTheStack) {
     auto calc = RpnCalculator();
     auto result = calc.evaluate("2.5 3.4 +");
     ASSERT_FALSE(is_error(result));
-    ASSERT_EQ(2.5 + 3.4, calc.top());
+    ASSERT_DOUBLE_EQ(2.5 + 3.4, calc.top());
 }
 
 TEST(RpnCalculator, ShouldReturnErrorWhenTheresNotEnoughOperandsInStack) {
@@ -50,7 +50,30 @@ TEST(RpnCalculator, ShouldAcceptOperatorsPassedToConstructor) {
         return CalcResult::OK;
     });
     auto calc = RpnCalculator(ops);
-    CalcResult result = calc.evaluate("?");
+    auto result = calc.evaluate("?");
     ASSERT_FALSE(is_error(result));
-    ASSERT_EQ(10.0, calc.top());
+    ASSERT_DOUBLE_EQ(10.0, calc.top());
+}
+
+void check_calculation(std::string input, double expected) {
+    auto calc = RpnCalculator();
+    auto result = calc.evaluate(input);
+    ASSERT_FALSE(is_error(result));
+    ASSERT_NEAR(expected, calc.top(), 0.001);
+}
+
+TEST(RpnCalculator, ShouldCalculateSubtraction) {
+    check_calculation("6 2 -", 4.0);
+}
+
+TEST(RpnCalculator, ShouldCalculateMultiplication) {
+    check_calculation("6 2 *", 12.0);
+}
+
+TEST(RpnCalculator, ShouldCalculateDivision) {
+    check_calculation("6 2 /", 3.0);
+}
+
+TEST(RpnCalculator, ShouldCalculateExampleFromSite) {
+    check_calculation("19 2.14 + 4.5 2 4.3 / - *", 85.2974);
 }
