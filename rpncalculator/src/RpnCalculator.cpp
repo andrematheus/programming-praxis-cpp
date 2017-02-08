@@ -9,6 +9,9 @@ CalcResult RpnCalculator::evaluate(string input) {
     istringstream is(input);
     string token;
     while (getline(is, token, ' ')) {
+        if (token == "") {
+            continue;
+        }
         try {
             CalcResult result;
             auto op = this->operators.find(token);
