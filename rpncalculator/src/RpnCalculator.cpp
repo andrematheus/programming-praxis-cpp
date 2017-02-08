@@ -4,18 +4,38 @@
 
 using namespace std;
 
-std::unique_ptr<CalcResultS> RpnCalculator::evaluate(string input) {
+CalcResult sum_operator(stack<double> &stack) {
+    if (stack.size() < 2) {
+        return CalcResult::NotEnoughOperandsError;
+    }
+    auto x = stack.top();
+    stack.pop();
+    auto y = stack.top();
+    stack.pop();
+    auto result = x + y;
+    stack.push(result);
+    return CalcResult::OK;
+}
+
+CalcResult RpnCalculator::evaluate(string input) {
     istringstream is(input);
     string token;
     while (getline(is, token, ' ')) {
         try {
-            auto operand = stod(token);
-            this->stack.push(operand);
+            switch (token[0]) {
+                case '+':
+                    sum_operator(this->stack);
+                    break;
+                default:
+                    auto operand = stod(token);
+                    this->stack.push(operand);
+                    break;
+            }
         } catch (const exception &e) {
-            return CalcResultS::error(CalcError::ParsingError);
+            return CalcResult::ParsingError;
         }
     }
-    return CalcResultS::ok();
+    return CalcResult::OK;
 }
 
 double RpnCalculator::top() {

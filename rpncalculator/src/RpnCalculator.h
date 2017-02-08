@@ -8,7 +8,7 @@
 class RpnCalculator {
 
 public:
-    std::unique_ptr<CalcResultS> evaluate(std::string input);
+    CalcResult evaluate(std::string input);
 
     double top();
 

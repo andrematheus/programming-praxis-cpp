@@ -2,19 +2,10 @@
 
 #include <memory>
 
-enum CalcError {
+enum CalcResult {
+    OK,
     ParsingError,
+    NotEnoughOperandsError,
 };
 
-class CalcResultS;
-
-typedef std::unique_ptr<CalcResultS> CalcResult;
-
-class CalcResultS {
-public:
-    static CalcResult ok();
-
-    static CalcResult error(const CalcError error);
-
-    virtual bool is_error()= 0;
-};
+bool is_error(CalcResult result);
