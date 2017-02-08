@@ -1,2 +1,0 @@
-ADD_EXECUTABLE(rpnctest rpnctest.cpp)
-TARGET_LINK_LIBRARIES(rpnctest rpncalculator gtest gtest_main)

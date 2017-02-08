@@ -6,8 +6,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -Wextra -Werror")
 
 option(BUILD_TEST "Build the tests" FALSE)
 
-IF(BUILD_TEST)
-add_subdirectory(vendor/googletest-release-1.8.0/googletest)
-ENDIF()
+if (BUILD_TEST)
+    enable_testing()
+    add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} --verbose)
+endif ()
 
 add_subdirectory(rpncalculator)
