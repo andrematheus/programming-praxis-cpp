@@ -3,6 +3,7 @@
 #include <string>
 #include <stack>
 #include <memory>
+#include <map>
 #include "CalcResult.h"
 #include "Operator.h"
 

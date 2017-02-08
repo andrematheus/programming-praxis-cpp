@@ -1,0 +1,5 @@
+// Add more errors using DEF()
+DEF(OK)
+DEF(ParsingError)
+DEF(NotEnoughOperandsError)
+DEF(InvalidOperator)

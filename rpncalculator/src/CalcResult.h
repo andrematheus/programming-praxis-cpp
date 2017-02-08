@@ -2,11 +2,15 @@
 
 #include <memory>
 
-enum CalcResult {
-    OK,
-    ParsingError,
-    NotEnoughOperandsError,
-    InvalidOperator,
+enum class CalcResult {
+#define DEF(x) x,
+
+#include "CalcResult.def"
+#undef DEF
 };
 
 bool is_error(CalcResult result);
+
+bool is_ok(CalcResult result);
+
+std::ostream &operator<<(std::ostream &os, CalcResult const &r);

@@ -4,7 +4,7 @@ This is my attempt at solving [Programming Praxis](https://programmingpraxis.com
 
 ## Requisites:
 
-C++ compiler (C++14), cmake.
+C++ compiler (C++14), cmake, gtest and gmock.
 
 ## To Build:
 
@@ -15,8 +15,16 @@ C++ compiler (C++14), cmake.
 
 ## To run tests:
 
-    cargo test
+- Quietly
+
+
+    make test
+    
+- Verbose
+
+   
+    make check
 
 ## To run binaries for a problem:
 
-    cargo run <problem-name>
+    make <problem-name>-run
