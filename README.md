@@ -4,7 +4,7 @@ This is my attempt at solving [Programming Praxis](https://programmingpraxis.com
 
 ## Requisites:
 
-C++ compiler (C++14), cmake, gtest and gmock.
+C++ compiler (C++14), cmake.
 
 ## To Build:
 
