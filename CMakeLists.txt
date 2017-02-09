@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(programming_praxis_cpp)
+project(programming_praxis_cpp C CXX)
 find_package(Threads REQUIRED)
 
 include(ExternalProject)
