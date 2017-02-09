@@ -13,4 +13,4 @@ bool is_error(CalcResult result);
 
 bool is_ok(CalcResult result);
 
-std::ostream &operator<<(std::ostream &os, CalcResult const &r);
+std::ostream &operator<<(std::ostream &os, const CalcResult r);

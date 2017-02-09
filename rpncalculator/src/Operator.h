@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stack>
+#include <functional>
 #include "CalcResult.h"
 
 class Operator {

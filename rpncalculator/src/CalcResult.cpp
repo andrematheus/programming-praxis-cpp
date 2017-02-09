@@ -1,5 +1,7 @@
 #include "RpnCalculator.h"
 
+#include <iostream>
+
 bool is_error(CalcResult result) {
     return result != CalcResult::OK;
 }
@@ -9,13 +11,14 @@ bool is_ok(CalcResult result) {
 }
 
 std::string descriptions[] = {
-#define DEF(x) ""#x ,
-
+#define DEF(x) std::string(#x),
 #include "CalcResult.def"
 #undef DEF
 };
 
-std::ostream &operator<<(std::ostream &os, CalcResult const &r) {
+std::ostream &operator<<(std::ostream &os, CalcResult r) {
     int index = static_cast<int>(r);
-    return os << descriptions[index];
+    std::string desc = descriptions[index];
+    os << desc;
+    return os;
 }
