@@ -13,4 +13,4 @@ pipelines:
           - cd build
           - cmake .. -DBUILD_TEST=1
           - make
-          - make test
+          - make check
