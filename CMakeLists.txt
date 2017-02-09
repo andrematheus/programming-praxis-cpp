@@ -11,6 +11,7 @@ option(BUILD_TEST "Build the tests" FALSE)
 if (BUILD_TEST)
     enable_testing()
     add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} --verbose)
+    include(CMakegtest.txt)
 endif ()
 
 add_subdirectory(rpncalculator)
