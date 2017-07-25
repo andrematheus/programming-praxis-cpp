@@ -1,49 +1,49 @@
-#include <iostream>
-#include <gtest/gtest.h>
+#define CATCH_CONFIG_MAIN
+#include "catch.hpp"
 #include "../src/RpnCalculator.h"
 
-TEST(RpnCalculator, CreatesACalculator) {
+TEST_CASE("Create a calculator", "[RpnCalculator]") {
     auto calc = RpnCalculator();
-    ASSERT_TRUE(true);
+    REQUIRE(true);
 }
 
-TEST(RpnCalculator, ShouldAddADoubleToTheStack) {
+TEST_CASE("Should add a double to the stack", "[RpnCalculator][Evaluator][Stack]") {
     auto calc = RpnCalculator();
     auto result = calc.evaluate("2.5");
-    ASSERT_FALSE(is_error(result));
-    ASSERT_DOUBLE_EQ(2.5, calc.top());
+    REQUIRE_FALSE(is_error(result));
+    REQUIRE(calc.top() == Approx(2.5));
 }
 
-TEST(RpnCalculator, ShouldReturnErrorWhenEvaluatingGarbage) {
+TEST_CASE("Should return error when evaluating garbage", "[RpnCalculator][Evaluator]") {
     auto calc = RpnCalculator();
     auto result = calc.evaluate("garbage");
-    ASSERT_TRUE(is_error(result));
+    REQUIRE(is_error(result));
 }
 
-TEST(RpnCalculator, ShouldAddTwoDoublesToTheStack) {
+TEST_CASE("Should add two doubles to the stack", "[RpnCalculator]") {
     auto calc = RpnCalculator();
     auto result = calc.evaluate("2.5 3.4");
-    ASSERT_FALSE(is_error(result));
-    ASSERT_DOUBLE_EQ(3.4, calc.top());
+    REQUIRE_FALSE(is_error(result));
+    REQUIRE( calc.top() == Approx(3.4));
     calc.pop();
-    ASSERT_DOUBLE_EQ(2.5, calc.top());
+    REQUIRE( calc.top() == Approx(2.5));
 }
 
-TEST(RpnCalculator, ShouldSumTwoOperandsInTheStack) {
+TEST_CASE("Should sum two operands in the stack", "[RpnCalculator]") {
     auto calc = RpnCalculator();
     auto result = calc.evaluate("2.5 3.4 +");
-    ASSERT_FALSE(is_error(result));
-    ASSERT_DOUBLE_EQ(2.5 + 3.4, calc.top());
+    REQUIRE_FALSE(is_error(result));
+    REQUIRE( calc.top() == Approx(2.5 + 3.4));
 }
 
-TEST(RpnCalculator, ShouldReturnErrorWhenTheresNotEnoughOperandsInStack) {
+TEST_CASE("Should return error when there's not enough operands in stack", "[RpnCalculator]") {
     auto calc = RpnCalculator();
     auto result = calc.evaluate("+");
-    ASSERT_TRUE(is_error(result));
-    ASSERT_EQ(CalcResult::NotEnoughOperandsError, result);
+    REQUIRE(is_error(result));
+    REQUIRE(result == CalcResult::NotEnoughOperandsError);
 }
 
-TEST(RpnCalculator, ShouldAcceptOperatorsPassedToConstructor) {
+TEST_CASE("Should accept operators passed to constructor", "[RpnCalculator]") {
     auto ops = std::map<std::string, Operator>();
     ops["?"] = Operator([](std::stack<double> &s) {
         s.push(10.0);
@@ -51,29 +51,29 @@ TEST(RpnCalculator, ShouldAcceptOperatorsPassedToConstructor) {
     });
     auto calc = RpnCalculator(ops);
     auto result = calc.evaluate("?");
-    ASSERT_FALSE(is_error(result));
-    ASSERT_DOUBLE_EQ(10.0, calc.top());
+    REQUIRE_FALSE(is_error(result));
+    REQUIRE( calc.top() == Approx(10.0));
 }
 
 void check_calculation(std::string input, double expected) {
     auto calc = RpnCalculator();
     auto result = calc.evaluate(input);
-    ASSERT_FALSE(is_error(result));
-    ASSERT_NEAR(expected, calc.top(), 0.001);
+    REQUIRE_FALSE(is_error(result));
+    REQUIRE(calc.top() == Approx(expected));
 }
 
-TEST(RpnCalculator, ShouldCalculateSubtraction) {
+TEST_CASE("Should calculate subtraction", "[RpnCalculator]") {
     check_calculation("6 2 -", 4.0);
 }
 
-TEST(RpnCalculator, ShouldCalculateMultiplication) {
+TEST_CASE("Should calculate multiplication", "[RpnCalculator]") {
     check_calculation("6 2 *", 12.0);
 }
 
-TEST(RpnCalculator, ShouldCalculateDivision) {
+TEST_CASE("Should calculate division", "[RpnCalculator]") {
     check_calculation("6 2 /", 3.0);
 }
 
-TEST(RpnCalculator, ShouldCalculateExampleFromSite) {
+TEST_CASE("Should calculate example from site", "[RpnCalculator]") {
     check_calculation("19 2.14 + 4.5 2 4.3 / - *", 85.2974);
 }
