@@ -1,0 +1,9 @@
+image: andreroquem/clang-build
+
+test:
+  script:
+    - mkdir build
+    - cd build
+    - cmake .. -DBUILD_TEST=1
+    - make
+    - make check
